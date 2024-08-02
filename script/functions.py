@@ -77,8 +77,8 @@ def visualize_template():
 
 def commit(date, message):
     command = ["git", "commit", "--allow-empty", "-m", message, "--date", date]
-    # command = ["ls", "-al"]
-    return subprocess.run(command)
+    result = subprocess.run(command)
+    return result.returncode != 0
 
 def commitTemplate():
     with open(FILE, "r") as file:
@@ -105,7 +105,7 @@ def commitTemplate():
                     print(errorPixelValue.format(line, column+1))
                     return 1
                 for j in range(char):
-                    if commit(date_str, f'commit n°{j} for the {date_str}') :
+                    if commit(date_str, f'commit n°{j+1} for the {date_str}') :
                         return 1
                 date += datetime.timedelta(days=1)
 
