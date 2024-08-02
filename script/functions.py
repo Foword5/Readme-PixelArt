@@ -89,7 +89,7 @@ def commitTemplate():
                 year = int(line.split("Year: ")[1].strip())
             linesStarts.append(len(line) + linesStarts[-1])
 
-    date = datetime.date(year, 1, 1)
+    date = datetime.date(year, 1, 2)
 
     with open(FILE, "r") as file:
         line = 1
