@@ -1,6 +1,7 @@
 # Readme PixelArt
 
 Easely make a pixelArt on your activity board using the --date option of git commit.
+Idea given by the great [Charles-Chrismann](https://github.com/Charles-Chrismann/).
 
 ## Requirements
 
