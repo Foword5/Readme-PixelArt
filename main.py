@@ -1,1 +1,7 @@
-#git commit -m "add commit" --date="2005-01-01T00:12:00Z"
+import sys
+from script.functions import *
+
+if __name__ == "__main__":
+    result = main(sys.argv)
+    if result is not None:
+        sys.exit(result)
