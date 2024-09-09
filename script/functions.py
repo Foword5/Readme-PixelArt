@@ -76,24 +76,35 @@ def visualize_template():
         print(errorVisualize)
 
 def commit(date, message):
-    command = ["git", "commit", "--allow-empty", "-m", message, "--date", date]
-    result = subprocess.run(command)
-    return result.returncode != 0
+    with open("commitedFile.txt", "w+") as file:
+        file.write(message)
+        command = ["git", "add", "commitedFile.txt"]
+        subprocess.run(command)
+        command = ["git", "commit", "--allow-empty", "-m", message, "--date", date]
+        result = subprocess.run(command, stdout=subprocess.DEVNULL)
+        return result.returncode != 0
 
 def commitTemplate():
     with open(FILE, "r") as file:
         year = 0
         linesStarts = [0]
+        nbCommit = 0
         for line in file:
             if (line.startswith("Year")):
                 year = int(line.split("Year: ")[1].strip())
+            else :
+                for i in range(len(line)):
+                    if line[i].isdigit():
+                        nbCommit += int(line[i])
             linesStarts.append(len(line) + linesStarts[-1])
 
+    print(f"Commits to be done: {nbCommit}")
     date = datetime.date(year, 1, 2)
 
     with open(FILE, "r") as file:
         line = 1
         column = 0
+        commited = 0
         for i in range(0, 366):
             file.seek(linesStarts[line]+column)
             char = file.read(1)
@@ -107,12 +118,15 @@ def commitTemplate():
                 for j in range(char):
                     if commit(date_str, f'commit n°{j+1} for the {date_str}') :
                         return 1
+                    commited += 1
+                    show_progress(int(commited*100/nbCommit), 40)
                 date += datetime.timedelta(days=1)
 
             line += 1
             if line == 8:
                 line = 1
                 column += 1
+    print("\n" + commitSuccess)
 
 def main(params):
     if len(params) < 2:

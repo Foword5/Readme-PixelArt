@@ -23,3 +23,7 @@ Invalid pixel value at position ({}, {}).
 errorVisualize = """
 The template file is not correctly formatted. Some white square where placed in the invalids position.
 """
+
+commitSuccess = """
+All the commits have been successfully done. Don't forget to push them !
+"""
